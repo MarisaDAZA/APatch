@@ -1,24 +1,24 @@
 name: Build Manager
 
 on:
-  push:
-    tags: [ "*" ]
-    branches: [ "main" ]
-    paths:
-      - '.github/workflows/build.yml'
-      - 'app/**'
-      - 'apd/**'
-      - 'build.gradle.kts'
-      - 'gradle/libs.versions.toml'
-  pull_request:
-    branches: [ "main" ]
-    paths:
-      - '.github/workflows/build.yml'
-      - 'app/**'
-      - 'apd/**'
-      - 'build.gradle.kts'
-      - 'gradle/libs.versions.toml'
-  workflow_call:
+  # push:
+  #   tags: [ "*" ]
+  #   branches: [ "main" ]
+  #   paths:
+  #     - '.github/workflows/build.yml'
+  #     - 'app/**'
+  #     - 'apd/**'
+  #     - 'build.gradle.kts'
+  #     - 'gradle/libs.versions.toml'
+  # pull_request:
+  #   branches: [ "main" ]
+  #   paths:
+  #     - '.github/workflows/build.yml'
+  #     - 'app/**'
+  #     - 'apd/**'
+  #     - 'build.gradle.kts'
+  #     - 'gradle/libs.versions.toml'
+  # workflow_call:
   workflow_dispatch:
 
 jobs:
