@@ -109,6 +109,7 @@ import java.util.Locale
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun SettingScreen() {
+    val context = LocalContext.current
     val state by APApplication.apStateLiveData.observeAsState(APApplication.State.UNKNOWN_STATE)
     val kPatchReady = state != APApplication.State.UNKNOWN_STATE
     val aPatchReady =
