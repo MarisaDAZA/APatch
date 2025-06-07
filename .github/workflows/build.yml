@@ -82,19 +82,19 @@ jobs:
           ./gradlew clean assembleRelease
           echo "BUILD_TOOL_VERSION=$(ls /usr/local/lib/android/sdk/build-tools/ | tail -n 1)" >> $GITHUB_ENV
 
-      - name: Sign Release
-        # env:
-        #   SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-        # if: ${{ env.SIGNING_KEY != '' }}
-        continue-on-error: true
-        uses: noriban/sign-android-release@v5.1
-        id: sign_app
-        with:
-          releaseDirectory: app/build/outputs/apk/release
-          # signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          # alias: ${{ secrets.ALIAS }}
-          # keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          # keyPassword: ${{ secrets.KEY_PASSWORD }}
+      # - name: Sign Release
+      #   env:
+      #     SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+      #   if: ${{ env.SIGNING_KEY != '' }}
+      #   continue-on-error: true
+      #   uses: noriban/sign-android-release@v5.1
+      #   id: sign_app
+      #   with:
+      #     releaseDirectory: app/build/outputs/apk/release
+      #     signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+      #     alias: ${{ secrets.ALIAS }}
+      #     keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+      #     keyPassword: ${{ secrets.KEY_PASSWORD }}
 
       - name: Upload build artifact
         # env:
@@ -122,16 +122,16 @@ jobs:
       #       curl -v "$URL" -F Release=@${{ steps.sign_app.outputs.signedReleaseFile }}
       #    fi
 
-      - name: Release apk
-        # env:
-        #   SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-        # if: ${{ env.SIGNING_KEY != '' && github.ref_type == 'tag' }}
-        continue-on-error: true
-        uses: ncipollo/release-action@v1
-        with:
-          token: ${{ github.token }}
-          tag: ${{ steps.parse_version.outputs.VERSION }}
-          artifacts: ${{steps.sign_app.outputs.signedReleaseFile}}
-          generateReleaseNotes: true
-          makeLatest: true
-          replacesArtifacts: true
+      # - name: Release apk
+      #   env:
+      #     SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+      #   if: ${{ env.SIGNING_KEY != '' && github.ref_type == 'tag' }}
+      #   continue-on-error: true
+      #   uses: ncipollo/release-action@v1
+      #   with:
+      #     token: ${{ github.token }}
+      #     tag: ${{ steps.parse_version.outputs.VERSION }}
+      #     artifacts: ${{steps.sign_app.outputs.signedReleaseFile}}
+      #     generateReleaseNotes: true
+      #     makeLatest: true
+      #     replacesArtifacts: true

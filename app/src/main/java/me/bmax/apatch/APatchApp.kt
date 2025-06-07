@@ -17,7 +17,7 @@ import me.bmax.apatch.util.APatchKeyHelper
 import me.bmax.apatch.util.Version
 import me.bmax.apatch.util.getRootShell
 import me.bmax.apatch.util.rootShellForResult
-import me.bmax.apatch.util.verifyAppSignature
+//import me.bmax.apatch.util.verifyAppSignature
 import java.io.File
 import kotlin.concurrent.thread
 import kotlin.system.exitProcess
@@ -245,7 +245,7 @@ class APApplication : Application(), Thread.UncaughtExceptionHandler {
             exitProcess(0)
         }
 
-        if (!BuildConfig.DEBUG && !verifyAppSignature("1x2twMoHvfWUODv7KkRRNKBzOfEqJwRKGzJpgaz18xk=")) {
+        /*if (!BuildConfig.DEBUG && !verifyAppSignature("1x2twMoHvfWUODv7KkRRNKBzOfEqJwRKGzJpgaz18xk=")) {
             while (true) {
                 val intent = Intent(Intent.ACTION_DELETE)
                 intent.data = Uri.parse("package:$packageName")
@@ -254,7 +254,7 @@ class APApplication : Application(), Thread.UncaughtExceptionHandler {
                 startActivity(intent)
                 exitProcess(0)
             }
-        }
+        }*/
 
         // TODO: We can't totally protect superkey from be stolen by root or LSPosed-like injection tools in user space, the only way is don't use superkey,
         // TODO: 1. make me root by kernel
