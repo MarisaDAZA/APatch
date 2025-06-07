@@ -26,7 +26,7 @@ val androidTargetSdkVersion = 35
 val androidCompileSdkVersion = 35
 
 val androidCompileNdkVersion = "27.2.12479018"
-val managerVersionCode by extra(getVersionCode())
+val managerVersionCode = 11039
 val managerVersionName by extra(getVersionName())
 
 fun getGitCommitCount(): Int {
