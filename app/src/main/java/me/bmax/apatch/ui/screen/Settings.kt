@@ -112,7 +112,7 @@ fun SettingScreen() {
     val kPatchReady = state != APApplication.State.UNKNOWN_STATE
     val aPatchReady =
         (state == APApplication.State.ANDROIDPATCH_INSTALLING || state == APApplication.State.ANDROIDPATCH_INSTALLED || state == APApplication.State.ANDROIDPATCH_NEED_UPDATE)
-    //val bIsManagerHide = AppUtils.getPackageName() != APPLICATION_ID
+    val bIsManagerHide = AppUtils.getPackageName() != APPLICATION_ID
     var isGlobalNamespaceEnabled by rememberSaveable {
         mutableStateOf(false)
     }
@@ -145,10 +145,10 @@ fun SettingScreen() {
         val showLanguageDialog = rememberSaveable { mutableStateOf(false) }
         LanguageDialog(showLanguageDialog)
 
-        /*val showRandomizePkgNameDialog = rememberSaveable { mutableStateOf(false) }
+        val showRandomizePkgNameDialog = rememberSaveable { mutableStateOf(false) }
         if (showRandomizePkgNameDialog.value) {
             RandomizePkgNameDialog(showDialog = showRandomizePkgNameDialog)
-        }*/
+        }
 
         val showResetSuPathDialog = remember { mutableStateOf(false) }
         if (showResetSuPathDialog.value) {
@@ -362,7 +362,6 @@ fun SettingScreen() {
                 }, leadingContent = { Icon(Icons.Filled.FormatColorFill, null) })
             }
 
-            /*
             // hide manager
             if (kPatchReady && !bIsManagerHide) {
                 ListItem(
@@ -386,7 +385,7 @@ fun SettingScreen() {
                         showRandomizePkgNameDialog.value = true
                     }
                 )
-            }*/
+            }
 
             // su path
             if (kPatchReady) {
