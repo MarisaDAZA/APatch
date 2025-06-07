@@ -83,7 +83,6 @@ import com.ramcosta.composedestinations.annotation.RootGraph
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import dev.utils.app.AppUtils
 import me.bmax.apatch.APApplication
 import me.bmax.apatch.BuildConfig
 import me.bmax.apatch.Natives
@@ -114,7 +113,7 @@ fun SettingScreen() {
     val kPatchReady = state != APApplication.State.UNKNOWN_STATE
     val aPatchReady =
         (state == APApplication.State.ANDROIDPATCH_INSTALLING || state == APApplication.State.ANDROIDPATCH_INSTALLED || state == APApplication.State.ANDROIDPATCH_NEED_UPDATE)
-    val bIsManagerHide = AppUtils.getPackageName() != BuildConfig.APPLICATION_ID
+    val bIsManagerHide = context.packageName != BuildConfig.APPLICATION_ID
     var isGlobalNamespaceEnabled by rememberSaveable {
         mutableStateOf(false)
     }
