@@ -16,7 +16,7 @@ val androidTargetSdkVersion = 35
 val androidCompileSdkVersion = 35
 
 val androidCompileNdkVersion = "28.1.13356709"
-val managerVersionCode by extra(getVersionCode())
+val managerVersionCode = 11107 // by extra(getVersionCode())
 val managerVersionName by extra(getVersionName())
 
 fun Project.exec(command: String) = providers.exec {
@@ -31,11 +31,13 @@ fun getGitDescribe(): String {
     return exec("git describe --tags --always").trim()
 }
 
+/*
 fun getVersionCode(): Int {
     val commitCount = getGitCommitCount()
     val major = 1
     return major * 10000 + commitCount + 200
 }
+*/
 
 fun getVersionName(): String {
     return getGitDescribe()
