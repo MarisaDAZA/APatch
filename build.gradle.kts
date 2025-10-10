@@ -23,9 +23,11 @@ fun Project.exec(command: String) = providers.exec {
     commandLine(command.split(" "))
 }.standardOutput.asText.get().trim()
 
+/*
 fun getGitCommitCount(): Int {
     return exec("git rev-list --count HEAD").trim().toInt()
 }
+*/
 
 fun getGitDescribe(): String {
     return exec("git describe --tags --always").trim()
