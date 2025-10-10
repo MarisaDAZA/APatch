@@ -36,6 +36,7 @@ import androidx.compose.material.icons.filled.FilePresent
 import androidx.compose.material.icons.filled.FormatColorFill
 import androidx.compose.material.icons.filled.InvertColors
 import androidx.compose.material.icons.filled.Key
+import androidx.compose.material.icons.filled.Masks
 import androidx.compose.material.icons.filled.RemoveFromQueue
 import androidx.compose.material.icons.filled.Save
 import androidx.compose.material.icons.filled.Share
@@ -115,10 +116,12 @@ import java.util.Locale
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun SettingScreen() {
+    val context = LocalContext.current
     val state by APApplication.apStateLiveData.observeAsState(APApplication.State.UNKNOWN_STATE)
     val kPatchReady = state != APApplication.State.UNKNOWN_STATE
     val aPatchReady =
         (state == APApplication.State.ANDROIDPATCH_INSTALLING || state == APApplication.State.ANDROIDPATCH_INSTALLED || state == APApplication.State.ANDROIDPATCH_NEED_UPDATE)
+    val bIsManagerHide = context.packageName != BuildConfig.APPLICATION_ID
     var isGlobalNamespaceEnabled by rememberSaveable {
         mutableStateOf(false)
     }
@@ -161,6 +164,11 @@ fun SettingScreen() {
 
         val showLanguageDialog = rememberSaveable { mutableStateOf(false) }
         LanguageDialog(showLanguageDialog)
+
+        val showRandomizePkgNameDialog = rememberSaveable { mutableStateOf(false) }
+        if (showRandomizePkgNameDialog.value) {
+            RandomizePkgNameDialog(showDialog = showRandomizePkgNameDialog)
+        }
 
         val showResetSuPathDialog = remember { mutableStateOf(false) }
         if (showResetSuPathDialog.value) {
@@ -402,6 +410,31 @@ fun SettingScreen() {
                         color = MaterialTheme.colorScheme.outline
                     )
                 }, leadingContent = { Icon(Icons.Filled.FormatColorFill, null) })
+            }
+
+            // hide manager
+            if (kPatchReady && !bIsManagerHide) {
+                ListItem(
+                    leadingContent = {
+                        Icon(
+                            Icons.Filled.Masks,
+                            stringResource(id = R.string.hide_apatch_manager)
+                        )
+                    },
+                    supportingContent = {
+                        Text(text = stringResource(id = R.string.hide_apatch_manager_summary))
+                    },
+                    headlineContent = {
+                        Text(
+                            stringResource(id = R.string.hide_apatch_manager),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.outline
+                        )
+                    },
+                    modifier = Modifier.clickable {
+                        showRandomizePkgNameDialog.value = true
+                    }
+                )
             }
 
             // su path
