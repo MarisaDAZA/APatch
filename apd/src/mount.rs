@@ -12,7 +12,7 @@ use std::fs::create_dir;
 #[cfg(any(target_os = "linux", target_os = "android"))]
 use std::os::unix::fs::PermissionsExt;
 
-use crate::defs::AP_OVERLAY_SOURCE;
+// use crate::defs::AP_OVERLAY_SOURCE;
 use crate::defs::PTS_NAME;
 use log::{info, warn};
 #[cfg(any(target_os = "linux", target_os = "android"))]
@@ -152,7 +152,7 @@ pub fn mount_overlayfs(
             fsconfig_set_string(fs, "upperdir", upperdir)?;
             fsconfig_set_string(fs, "workdir", workdir)?;
         }
-        fsconfig_set_string(fs, "source", AP_OVERLAY_SOURCE)?;
+        fsconfig_set_string(fs, "source", "overlay")?;
         fsconfig_create(fs)?;
         let mount = fsmount(fs, FsMountFlags::FSMOUNT_CLOEXEC, MountAttrFlags::empty())?;
         move_mount(
@@ -171,7 +171,7 @@ pub fn mount_overlayfs(
             data = format!("{data},upperdir={upperdir},workdir={workdir}");
         }
         mount(
-            AP_OVERLAY_SOURCE,
+            "overlay",
             dest.as_ref(),
             "overlay",
             MountFlags::empty(),
@@ -184,7 +184,7 @@ pub fn mount_overlayfs(
 pub fn mount_devpts(dest: impl AsRef<Path>) -> Result<()> {
     create_dir(dest.as_ref())?;
     mount(
-        AP_OVERLAY_SOURCE,
+        "devpts",
         dest.as_ref(),
         "devpts",
         MountFlags::empty(),
@@ -203,7 +203,7 @@ pub fn mount_tmpfs(dest: impl AsRef<Path>) -> Result<()> {
     match fsopen("tmpfs", FsOpenFlags::FSOPEN_CLOEXEC) {
         Result::Ok(fs) => {
             let fs = fs.as_fd();
-            fsconfig_set_string(fs, "source", AP_OVERLAY_SOURCE)?;
+            fsconfig_set_string(fs, "source", "tmpfs")?;
             fsconfig_create(fs)?;
             let mount = fsmount(fs, FsMountFlags::FSMOUNT_CLOEXEC, MountAttrFlags::empty())?;
             move_mount(
@@ -216,7 +216,7 @@ pub fn mount_tmpfs(dest: impl AsRef<Path>) -> Result<()> {
         }
         _ => {
             mount(
-                AP_OVERLAY_SOURCE,
+                "tmpfs",
                 dest.as_ref(),
                 "tmpfs",
                 MountFlags::empty(),

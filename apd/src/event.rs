@@ -411,7 +411,7 @@ pub fn on_post_data_fs(superkey: Option<String>) -> Result<()> {
             let tmp_dir = PathBuf::from(work_dir.clone());
             ensure_dir_exists(&tmp_dir)?;
             mount(
-                defs::AP_OVERLAY_SOURCE,
+                "tmpfs",
                 &tmp_dir,
                 "tmpfs",
                 MountFlags::empty(),
