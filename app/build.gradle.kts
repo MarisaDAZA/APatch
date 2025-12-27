@@ -278,6 +278,8 @@ dependencies {
 
     implementation(libs.markdown)
 
+    implementation(libs.timber)
+
     implementation(libs.ini4j)
 
     implementation(libs.bcpkix)
